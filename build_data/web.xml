@@ -21,10 +21,10 @@
                       http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
   version="3.1">
 
-  <!-- <context-param>
+  <context-param>
     <param-name>GEOSERVER_CSRF_WHITELIST</param-name>
-    <param-value>geo.mana-surf.com</param-value>
-  </context-param> -->
+    <param-value>test.the-oceans.org</param-value>
+  </context-param>
   <!-- ======================== Introduction ============================== -->
   <!-- This document defines default values for *all* web applications      -->
   <!-- loaded into this instance of Tomcat.  As each application is         -->
