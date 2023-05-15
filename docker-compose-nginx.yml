@@ -1,21 +1,17 @@
 version: '3.9'
 
-volumes:
-   geoserver-data:
-
 services:
    geoserver:
-      image: kartoza/geoserver:${GS_VERSION}
+      image: kartoza/geoserver:2.23.0
       volumes:
-        - /etc/certs:/etc/certs
+        - /etc/certs:/etc/letsencrypt
       restart: on-failure
       environment:
         - GEOWEBCACHE_CACHE_DIR=${GEOWEBCACHE_CACHE_DIR}
         - GEOSERVER_ADMIN_PASSWORD=SS1974GL
         - GEOSERVER_ADMIN_USER=admin_speri
-        - HTTP_PROXY_NAME=geo.mana-surf.com
+        - HTTP_PROXY_NAME=test.the-oceans.org
         - HTTP_SCHEME=https
-        # - CATALINA_OPTS=-DHTTP_PROXY_NAME=${HTTP_PROXY_NAME}
       healthcheck:
         test: "curl --fail --silent --write-out 'HTTP CODE : %{http_code}\n' --output /dev/null -u ${GEOSERVER_ADMIN_USER}:'${GEOSERVER_ADMIN_PASSWORD}' http://localhost:8080/geoserver/rest/about/version.xml"
         interval: 1m30s
@@ -28,7 +24,7 @@ services:
    nginx:
      image: nginx
      volumes:
-       - /etc/letsencrypt:/etc/letsencrypt
+       - /etc/certs:/etc/letsencrypt
        - ./sites-enabled:/etc/nginx/conf.d:ro
      logging:
        driver: json-file
